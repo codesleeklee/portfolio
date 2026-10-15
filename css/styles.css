@@ -39,6 +39,7 @@
   /* Not colors, but also reused everywhere: */
   --radius: 12px; /* how rounded the corners are */
   --max-width: 960px; /* how wide the content can get on big screens */
+  --section-space: 5rem; /* the gap between every section; change it here to tighten or loosen the whole page */
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
@@ -146,9 +147,20 @@ a:hover {
   padding-inline: 1.25rem; /* breathing room on the sides, important on phones */
 }
 
-/* Vertical spacing between sections. */
+/*
+  Vertical spacing between sections.
+  Each section only gets space ABOVE it. If we padded both top and bottom,
+  two neighbouring sections would add up to double the gap (bottom of one + top of the next),
+  while the first and last sections would get only half. Padding one side keeps every gap equal.
+*/
 .section {
-  padding-block: 4rem;
+  padding-top: var(--section-space);
+}
+
+/* The last section has nothing after it, so <main> adds the space before the footer.
+   We subtract the footer's own 2rem top padding so this gap matches the others. */
+main {
+  padding-bottom: calc(var(--section-space) - 2rem);
 }
 
 /* Section titles get a small accent "//" in front, a code-comment nod. */
@@ -310,9 +322,9 @@ a:hover {
    5. HERO
    ========================================================= */
 
-/* The bottom padding is small because the next section adds its own top padding. */
+/* No bottom padding: the About section's top padding (--section-space) makes the gap. */
 .hero {
-  padding-block: 6rem 1rem;
+  padding-block: 6rem 0;
 }
 
 .status-badge {
@@ -770,12 +782,13 @@ a:hover {
     font-size: 1rem;
   }
 
-  .hero {
-    padding-block: 4rem 0.5rem;
+  /* Variables can be changed inside a media query too: every section gap shrinks on phones at once. */
+  :root {
+    --section-space: 3.5rem;
   }
 
-  .section {
-    padding-block: 3rem;
+  .hero {
+    padding-top: 4rem;
   }
 
   .proof-list {
