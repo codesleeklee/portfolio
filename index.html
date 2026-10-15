@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<!--
+  index.html: the structure (the "skeleton") of the portfolio.
+
+  How the three files work together:
+    - index.html          → WHAT is on the page (text, links, sections)
+    - css/styles.css      → HOW it looks (colors, spacing, fonts, layout)
+    - js/theme.js         → picks light or dark mode before the page paints
+    - js/main.js          → small behaviours (theme toggle, mobile menu, year)
+
+  To change any text on the site, you only need to edit this file.
+-->
+<html lang="en">
+  <head>
+    <!-- Character encoding: lets the browser show any letter or symbol correctly. -->
+    <meta charset="UTF-8" />
+
+    <!-- Makes the page scale properly on phones instead of showing a zoomed-out desktop view. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- The text shown in the browser tab and in Google results. -->
+    <title>Emmanuel Johnny Koffi · Bubble.io Developer</title>
+
+    <!-- The short summary Google and social sites show under your link. -->
+    <meta
+      name="description"
+      content="Bubble.io developer building scalable SaaS, fintech and AI-powered web apps, from MVP to production."
+    />
+
+    <!-- Open Graph tags: control the preview card when someone shares your link on LinkedIn, Slack, etc. -->
+    <meta property="og:title" content="Emmanuel Johnny Koffi · Bubble.io Developer" />
+    <meta
+      property="og:description"
+      content="Bubble.io developer building scalable SaaS, fintech and AI-powered web apps, from MVP to production."
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Tells the browser this page supports both themes (it styles scrollbars and form controls to match). -->
+    <meta name="color-scheme" content="light dark" />
+
+    <!-- The little icon in the browser tab. It's an SVG file, so it stays sharp at any size. -->
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+
+    <!--
+      Fonts from Google Fonts.
+      "preconnect" opens the connection early so the fonts arrive faster.
+      Inter is used for normal text; JetBrains Mono gives the "developer" feel for small labels.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Our own stylesheet. -->
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <!--
+      theme.js is loaded WITHOUT "defer" on purpose: it runs immediately, before the page is drawn,
+      so a visitor who chose dark mode never sees a flash of the light theme first.
+    -->
+    <script src="js/theme.js"></script>
+
+    <!-- main.js is loaded WITH "defer": it waits until the HTML is fully read, then runs. -->
+    <script src="js/main.js" defer></script>
+  </head>
+
+  <body>
+    <!--
+      "Skip link": invisible until a keyboard user presses Tab.
+      It lets them jump straight past the menu to the content. A small thing that matters for accessibility.
+    -->
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- ===================== HEADER / NAVIGATION ===================== -->
+    <header class="site-header">
+      <div class="container header-inner">
+        <!-- Your initials act as the logo and link back to the top of the page. -->
+        <a class="logo" href="#top" aria-label="Back to top">EJK<span class="logo-dot">.</span></a>
+
+        <!-- The menu button only shows on small screens (see the CSS). -->
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-controls="site-nav"
+          aria-expanded="false"
+          aria-label="Open menu"
+        >
+          <!-- Three lines = the classic "hamburger" icon. -->
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+
+        <!-- Each link points to a section further down using its id (e.g. href="#about" → id="about"). -->
+        <nav id="site-nav" class="site-nav" aria-label="Main">
+          <a href="#about">About</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#certifications">Certifications</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <!--
+          The light/dark toggle. It contains two icons; CSS shows only the one that fits the current theme.
+          main.js updates the aria-label so screen readers announce what the button will do.
+        -->
+        <button class="theme-toggle" type="button" aria-label="Switch to light mode">
+          <!-- Sun icon (shown in dark mode: "click for light") -->
+          <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2" />
+            <path
+              d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+          <!-- Moon icon (shown in light mode: "click for dark") -->
+          <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <path
+              d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- <main> holds the page's unique content. id="main" is where the skip link jumps to. -->
+    <main id="main">
+      <!-- ===================== HERO (the first thing visitors see) ===================== -->
+      <section id="top" class="hero container">
+        <!-- The green dot + label. Change or delete this <p> when you're not looking for work. -->
+        <p class="status-badge">
+          <span class="status-dot" aria-hidden="true"></span>
+          Available for opportunities
+        </p>
+
+        <p class="eyebrow">Hi, my name is</p>
+        <h1 class="hero-name">Emmanuel Johnny Koffi</h1>
+        <p class="hero-headline">I turn ideas into production-grade digital products with Bubble.io.</p>
+
+        <!-- Two call-to-action buttons. They're really links (<a>) styled to look like buttons. -->
+        <div class="hero-actions">
+          <a class="button button-primary" href="#projects">View my work</a>
+          <a class="button button-secondary" href="#contact">Get in touch</a>
+        </div>
+      </section>
+
+      <!-- ===================== ABOUT ===================== -->
+      <section id="about" class="section container" aria-labelledby="about-title">
+        <h2 id="about-title" class="section-title">About</h2>
+
+        <p class="about-text">
+          I am passionate about leveraging no-code solutions to empower businesses and individuals to bring their
+          ideas to life efficiently and effectively. I especially enjoy crafting custom SaaS platforms and helping
+          startups launch their MVPs. I specialize in creating scalable, high-performance, and secure web
+          applications. My expertise includes database structuring, privacy rule implementation, application logic
+          design, and REST API integration.
+        </p>
+
+        <!-- Proof points: a quick list of facts that back up the About text. -->
+        <ul class="proof-list">
+          <li>4 Bubble certifications, including the official Bubble Developer Certification</li>
+          <li>Nearly 300 backend workflows in a single production app (CapGains)</li>
+          <li>5 featured products across fintech, AI, IoT, edtech and creative SaaS</li>
+          <li>
+            Integrations shipped: Plaid, Stripe, Crunchbase, Langflow, Wireless Logic, Monday.com, Mixpanel, Google
+            Cloud
+          </li>
+        </ul>
+
+        <!--
+          TECHNOLOGIES
+          Each technology is a "chip": an icon plus a name. To add one later (e.g. Xano or Figma),
+          copy the whole <li class="tech-chip">…</li> block and change the icon and the name.
+        -->
+        <h3 class="subsection-title">Technologies</h3>
+        <ul class="tech-list">
+          <li class="tech-chip">
+            <!-- A simple "b" mark drawn with SVG, so no image file is needed. -->
+            <svg class="tech-icon" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+              <rect width="32" height="32" rx="8" fill="currentColor" />
+              <circle cx="17.5" cy="18.5" r="5" fill="none" stroke="var(--bg)" stroke-width="3" />
+              <path d="M12.5 7.5v16" stroke="var(--bg)" stroke-width="3" stroke-linecap="round" />
+            </svg>
+            <span>Bubble.io</span>
+          </li>
+        </ul>
+
+        <!-- SKILLS: grouped so a recruiter can scan them quickly. A <dl> is a "description list": term + description. -->
+        <h3 class="subsection-title">Skills</h3>
+        <dl class="skills-grid">
+          <div class="skill-group">
+            <dt>Data and security</dt>
+            <dd>Database design, privacy rules, option sets, user roles, data migrations</dd>
+          </div>
+          <div class="skill-group">
+            <dt>Logic</dt>
+            <dd>Backend and recursive workflows, scheduled jobs, custom events and states, conditionals</dd>
+          </div>
+          <div class="skill-group">
+            <dt>Integrations</dt>
+            <dd>
+              API Connector, Plaid, Stripe, Crunchbase, Langflow, Wireless Logic, Monday.com, Google Cloud, Mixpanel
+            </dd>
+          </div>
+          <div class="skill-group">
+            <dt>Front end</dt>
+            <dd>
+              Responsive engine, reusable elements, repeating groups, maps, PDF generation, Bubble native mobile
+            </dd>
+          </div>
+          <div class="skill-group">
+            <dt>Delivery</dt>
+            <dd>MVPs, multi-role SaaS portals, admin back offices</dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- ===================== EXPERIENCE ===================== -->
+      <section id="experience" class="section container" aria-labelledby="experience-title">
+        <h2 id="experience-title" class="section-title">Experience</h2>
+
+        <!--
+          One <article> per job. To add another job, copy the whole <article class="job">…</article> block.
+          The newest job should go first.
+        -->
+        <ol class="timeline">
+          <li>
+            <article class="job">
+              <header class="job-header">
+                <div>
+                  <h3 class="job-title">Bubble.io Developer</h3>
+                  <p class="job-company">Airdev · Contract</p>
+                </div>
+                <div class="job-meta">
+                  <!-- <time> tells browsers and search engines this is a date. -->
+                  <p><time datetime="2022-07">Jul 2022</time> – Present</p>
+                  <p>Remote</p>
+                </div>
+              </header>
+              <ul class="job-points">
+                <li>Developing and launching full-scale applications on Bubble.io</li>
+                <li>Establishing database architecture and privacy rules</li>
+                <li>Integration with third-party API services</li>
+                <li>Collaborating directly with client &amp; internal team to ensure timely launch &amp; support</li>
+              </ul>
+            </article>
+          </li>
+        </ol>
+      </section>
+
+      <!-- ===================== PROJECTS ===================== -->
+      <section id="projects" class="section container" aria-labelledby="projects-title">
+        <h2 id="projects-title" class="section-title">Featured projects</h2>
+
+        <!--
+          Each project is an <article class="project">.
+          The case study sits inside a <details> element: the browser opens and closes it on click
+          with no JavaScript needed. <summary> is the clickable line.
+        -->
+        <div class="project-list">
+          <!-- ---------- 1. CapGains ---------- -->
+          <article class="project">
+            <div class="project-head">
+              <h3 class="project-title">CapGains</h3>
+              <!-- rel="noopener" is a security habit for links that open in a new tab. -->
+              <a class="project-link" href="https://capgains.com/" target="_blank" rel="noopener">
+                Visit site <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+            <p class="project-tagline">Tax-incentive intelligence for venture investors and startups</p>
+            <p class="project-summary">
+              A complex fintech platform that helps VCs, angels, shareholders and the companies they back qualify for
+              and maximize QSBS (Section 1202) and Section 1244 tax benefits, using guided questionnaires, AI document
+              analysis and automated diagnostics.
+            </p>
+            <ul class="tag-list">
+              <li>Fintech</li>
+              <li>AI</li>
+              <li>Crunchbase API</li>
+              <li>Backend Workflows</li>
+              <li>PDF reports</li>
+            </ul>
+
+            <details class="case-study">
+              <summary>Read the case study</summary>
+              <div class="case-study-body">
+                <h4>The problem</h4>
+                <p>
+                  Founders and investors routinely lose valuable tax breaks on startup equity because the qualifying
+                  rules are technical, depend on years of company history, and are easy to trip over without noticing.
+                  Gathering the evidence (financing rounds, balance sheets, stock agreements, operating locations) is
+                  slow, manual work for lawyers and analysts.
+                </p>
+
+                <h4>What I built</h4>
+                <p>A multi-portal platform where investors, companies and CapGains analysts collaborate on the same data:</p>
+                <ul>
+                  <li>
+                    <strong>Investor portal</strong> to track a portfolio of securities, see each holding's eligibility
+                    status and holding period, and get alerts when something puts a benefit at risk.
+                  </li>
+                  <li>
+                    <strong>Company portal</strong> with a step-by-step onboarding wizard that captures legal entities,
+                    parent and acquired entities, funding history, patents, office and employee locations, and financial
+                    statements.
+                  </li>
+                  <li>
+                    <strong>Guided questionnaires</strong> for QSBS (company and shareholder) and Section 1244, with
+                    answers that feed directly into the diagnostics.
+                  </li>
+                  <li>
+                    <strong>Issuer, security and shareholder diagnostics</strong> that score each criterion, flag risky
+                    answers and track every data point back to its source document.
+                  </li>
+                  <li>
+                    <strong>Generated reports</strong>, including a QSBS report and a 1244 loss report, built from dozens
+                    of reusable report sections and exportable to PDF.
+                  </li>
+                  <li>
+                    <strong>Admin and analyst tooling</strong> for coverage requests, security requests, reconciliation
+                    of schedules of investments, bulk emails and team invitations.
+                  </li>
+                </ul>
+
+                <h4>How it works under the hood</h4>
+                <ul>
+                  <li>
+                    <strong>Crunchbase integration</strong> (8 API calls) to autocomplete companies and investors, pull
+                    organization, people, funding-round and fund data, and pre-fill company profiles.
+                  </li>
+                  <li>
+                    <strong>AI document pipeline:</strong> uploaded stock purchase agreements are sent to a Python
+                    extraction service, and company and security diagnostics run through Langflow AI flows, with results
+                    written back into Bubble as structured answers and observations.
+                  </li>
+                  <li>
+                    <strong>Financial engine in backend workflows:</strong> income statements, balance sheets, tax-basis
+                    balance sheets, Schedule K items, capitalized R&amp;D and amortization, financing-round tests and the
+                    1244 transition calculation, all recalculated by chained parent/child workflows when an input
+                    changes.
+                  </li>
+                </ul>
+
+                <h4>By the numbers</h4>
+                <!-- A list of stats styled as small boxes in the CSS. -->
+                <ul class="stats">
+                  <li><strong>21</strong> pages</li>
+                  <li><strong>180+</strong> reusable elements</li>
+                  <li><strong>~300</strong> backend workflows</li>
+                  <li><strong>87</strong> data types</li>
+                  <li><strong>130+</strong> option sets</li>
+                  <li><strong>38</strong> plugins</li>
+                </ul>
+
+                <h4>Bubble skills shown</h4>
+                <p>
+                  Complex relational database design, privacy rules on sensitive financial data, recursive and scheduled
+                  backend workflows, API Connector at scale, AI integration, reusable-element architecture, multi-role
+                  portals, PDF generation.
+                </p>
+              </div>
+            </details>
+          </article>
+
+          <!-- ---------- 2. GreenPortfolio ---------- -->
+          <article class="project">
+            <div class="project-head">
+              <h3 class="project-title">GreenPortfolio</h3>
+              <a class="project-link" href="https://mygreenportfolio.com/" target="_blank" rel="noopener">
+                Visit site <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+            <p class="project-tagline">See how your investments impact the planet</p>
+            <p class="project-summary">
+              An investment app that connects to users' brokerage and bank accounts through Plaid, scores their holdings
+              on climate impact, and matches them with climate-focused financial advisors.
+            </p>
+            <ul class="tag-list">
+              <li>Fintech</li>
+              <li>Plaid</li>
+              <li>Stripe</li>
+              <li>Climate</li>
+              <li>Backend Workflows</li>
+              <li>Analytics</li>
+            </ul>
+
+            <details class="case-study">
+              <summary>Read the case study</summary>
+              <div class="case-study-body">
+                <h4>The problem</h4>
+                <p>
+                  Investors increasingly care where their money goes, but brokerages don't tell you how your funds and
+                  banks rank on climate. Answering that question meant exporting statements and researching every
+                  holding by hand.
+                </p>
+
+                <h4>What I built</h4>
+                <ul>
+                  <li>
+                    <strong>Plaid account linking</strong> for investment and depository accounts, importing accounts,
+                    holdings, securities and balances, with refresh and re-sync flows.
+                  </li>
+                  <li>
+                    <strong>CSV upload path</strong> for users whose institution isn't on Plaid, with a multi-step import
+                    that creates securities, holdings and accounts and merges duplicates.
+                  </li>
+                  <li>
+                    <strong>Climate scoring:</strong> per-holding and per-bank environmental metrics, a portfolio climate
+                    score, peer-group and benchmark comparisons, leaf ratings and a Climate Hub with contextual tips.
+                  </li>
+                  <li>
+                    <strong>Advisor matching:</strong> an advisor portal and investor matching flow that calls an
+                    external matching API and shows matched advisors with their philosophy, services, fees and booking
+                    link.
+                  </li>
+                  <li><strong>Subscriptions</strong> with Stripe tiers, upgrade prompts and cancellation handling.</li>
+                  <li>
+                    <strong>Weekly digest emails</strong> and an admin back office for banks, sectors, funds, metrics,
+                    peer groups, tips and subscriptions.
+                  </li>
+                </ul>
+
+                <h4>How it works under the hood</h4>
+                <ul>
+                  <li>
+                    A numbered chain of backend workflows (create accounts, make securities, attach holdings, save
+                    balances, clean up temp records) that turns raw Plaid or CSV data into a clean portfolio without
+                    blocking the UI, with separate dev and live paths.
+                  </li>
+                  <li>Data exported to Google Cloud using a JWT-signed service token.</li>
+                  <li>Product analytics through Mixpanel.</li>
+                </ul>
+
+                <h4>By the numbers</h4>
+                <ul class="stats">
+                  <li><strong>13</strong> pages</li>
+                  <li><strong>90</strong> reusable elements</li>
+                  <li><strong>110</strong> backend workflows</li>
+                  <li><strong>33</strong> data types</li>
+                  <li><strong>32</strong> plugins</li>
+                </ul>
+
+                <h4>Bubble skills shown</h4>
+                <p>
+                  Plaid integration, multi-step data pipelines in backend workflows, Stripe subscriptions, external API
+                  matching, JWT and Google Cloud auth, CSV import and export, data visualization, analytics
+                  instrumentation.
+                </p>
+              </div>
+            </details>
+          </article>
+
+          <!-- ---------- 3. Cloud-IQ (no public link, so no "Visit site") ---------- -->
+          <article class="project">
+            <div class="project-head">
+              <h3 class="project-title">Cloud-IQ</h3>
+            </div>
+            <p class="project-tagline">One control centre for IoT SIMs, devices and customers</p>
+            <p class="project-summary">
+              A web and native mobile platform that lets an IoT connectivity reseller manage thousands of SIM cards
+              across multiple network providers, track devices on a live map, bill customers and run support, all from
+              one dashboard.
+            </p>
+            <ul class="tag-list">
+              <li>IoT</li>
+              <li>Telecom APIs</li>
+              <li>Native mobile</li>
+              <li>Maps</li>
+              <li>Stripe</li>
+              <li>Backend Workflows</li>
+            </ul>
+
+            <details class="case-study">
+              <summary>Read the case study</summary>
+              <div class="case-study-body">
+                <h4>The problem</h4>
+                <p>
+                  An IoT connectivity business buys SIMs from several wholesale networks, each with its own portal, and
+                  resells them to customers who also need GPS trackers, invoices and support. Staff were jumping between
+                  supplier portals and spreadsheets to answer basic questions like "where is this device" or "how much
+                  data has this SIM used".
+                </p>
+
+                <h4>What the platform does</h4>
+                <ul>
+                  <li>
+                    <strong>Unified SIM inventory</strong> that pulls SIMs from two different wholesale providers into
+                    one list, with usage, status, network, location and provisioning history per SIM.
+                  </li>
+                  <li>
+                    <strong>Full SIM lifecycle control</strong> from inside the app: activate, cancel, swap by ICCID or
+                    MSISDN, bar and unbar, roaming settings, IMEI lock, tariff holidays, SIM groups and data caps.
+                  </li>
+                  <li><strong>SMS centre</strong> to send single or bulk SMS to devices and read SMS history.</li>
+                  <li>
+                    <strong>Live location:</strong> SIM and cell-tower location plus GPS tracker positions on Google and
+                    Leaflet maps, with geocoding and routes.
+                  </li>
+                  <li>
+                    <strong>Commercial layer:</strong> products, supplier and customer tariffs, SIM orders, RFQs, invoices
+                    with partial payments, Stripe billing and a customer self-service portal.
+                  </li>
+                  <li>
+                    <strong>Support desk</strong> with tickets and comments, synced to the client's Monday.com support
+                    board.
+                  </li>
+                  <li>
+                    <strong>Native mobile app</strong> (14 mobile views) with a dashboard, inventory, SIM detail, SMS
+                    centre, bulk SMS and support chat.
+                  </li>
+                </ul>
+
+                <h4>How it works under the hood</h4>
+                <p>
+                  About 100 API Connector calls across the Wireless Logic SIMPro API, a second SIM provider's API (token
+                  login and refresh), a GPS tracking server and Monday.com's GraphQL API. Nearly 50 backend workflows
+                  sync SIM lists, usage snapshots and locations on a schedule, process bulk SIM imports and handle
+                  provisioning batches. Multi-tenant organisations, partners and roles keep each customer to their own
+                  SIMs.
+                </p>
+
+                <h4>Size of the app I work in</h4>
+                <ul class="stats">
+                  <li><strong>18</strong> pages</li>
+                  <li><strong>14</strong> native mobile views</li>
+                  <li><strong>~50</strong> backend workflows</li>
+                  <li><strong>44</strong> data types</li>
+                  <li><strong>41</strong> plugins</li>
+                </ul>
+
+                <h4>Bubble skills shown</h4>
+                <p>
+                  Large-scale API integration, token refresh, scheduled syncs, multi-tenant privacy rules, maps and
+                  geolocation, Bubble native mobile, billing.
+                </p>
+              </div>
+            </details>
+          </article>
+
+          <!-- ---------- 4. CRITmetic ---------- -->
+          <article class="project">
+            <div class="project-head">
+              <h3 class="project-title">CRITmetic</h3>
+              <a class="project-link" href="https://critmetic.org" target="_blank" rel="noopener">
+                Visit site <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+            <p class="project-tagline">A learning platform for critical digital literacy</p>
+            <p class="project-summary">
+              An education platform with separate portals for students, facilitators and school staff, combining a
+              course library, assignments and assessments, a moderated social feed, chat and a wellness space.
+            </p>
+            <ul class="tag-list">
+              <li>EdTech</li>
+              <li>Multi-role portals</li>
+              <li>Social</li>
+              <li>Notifications</li>
+              <li>Backend Workflows</li>
+            </ul>
+
+            <details class="case-study">
+              <summary>Read the case study</summary>
+              <div class="case-study-body">
+                <h4>The problem</h4>
+                <p>
+                  Teaching young people to think critically about technology needs more than a video course.
+                  Facilitators need to run classes, set and grade work and keep students engaged, and schools need
+                  oversight, all in a safe space.
+                </p>
+
+                <h4>What the platform does</h4>
+                <ul>
+                  <li>
+                    <strong>Four portals:</strong> student, facilitator, staff and class, each with its own navigation
+                    and permissions.
+                  </li>
+                  <li>
+                    <strong>Curriculum builder:</strong> modules, lessons, videos, readings with versions and reading
+                    levels, visuals, slide decks and a resource library with collections, folders and keyword search.
+                  </li>
+                  <li>
+                    <strong>Assignments and assessments:</strong> multiple choice, matching and open questions, polls,
+                    submissions with attachments, feedback, due-date reminders and CSV exports of results.
+                  </li>
+                  <li>
+                    <strong>Social learning:</strong> a feed with posts, reposts, likes, hashtags, @mentions, link
+                    previews and media; announcements; group and direct chat; flagging and reporting for moderation.
+                  </li>
+                  <li>
+                    <strong>Wellness and growth:</strong> meditations and guided practice with audio, playlists, "future
+                    self" goals and milestones, notes with tags.
+                  </li>
+                  <li>
+                    <strong>Notification engine</strong> for new assignments, feedback, mentions, messages and reminders
+                    by email and in-app.
+                  </li>
+                </ul>
+
+                <h4>How it works under the hood</h4>
+                <p>
+                  165+ backend workflows drive scheduled reminders, bulk student imports, ordering of lessons and
+                  modules, search indexes and data migrations. A CSV-to-JSON pipeline lets staff bulk-upload library
+                  resources with validation. Link previews, PDF viewing with comments, audio players and an in-browser
+                  whiteboard are wired in through APIs and plugins.
+                </p>
+
+                <h4>Size of the app I work in</h4>
+                <ul class="stats">
+                  <li><strong>15</strong> pages</li>
+                  <li><strong>145</strong> reusable elements</li>
+                  <li><strong>165+</strong> backend workflows</li>
+                  <li><strong>85</strong> data types</li>
+                  <li><strong>49</strong> plugins</li>
+                </ul>
+
+                <h4>Bubble skills shown</h4>
+                <p>
+                  Complex role-based portals, reusable-element architecture, social features, scheduled notifications,
+                  CSV import pipelines, privacy rules for minors' data.
+                </p>
+              </div>
+            </details>
+          </article>
+
+          <!-- ---------- 5. ARQHIVE ---------- -->
+          <article class="project">
+            <div class="project-head">
+              <h3 class="project-title">ARQHIVE</h3>
+              <a class="project-link" href="https://arqhive.world" target="_blank" rel="noopener">
+                Visit site <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+            <p class="project-tagline">The portfolio platform for architects and designers</p>
+            <p class="project-summary">
+              A platform where architects and designers organize their projects, curate them into collections and share
+              tailored versions of their portfolio for each client, competition or job application, with paid plans
+              through Stripe.
+            </p>
+            <ul class="tag-list">
+              <li>Stripe</li>
+              <li>Backend Workflows</li>
+              <li>Portfolio platform</li>
+              <li>SaaS</li>
+            </ul>
+
+            <details class="case-study">
+              <summary>Read the case study</summary>
+              <div class="case-study-body">
+                <h4>The problem</h4>
+                <p>
+                  Architects keep their work scattered across PDFs, InDesign files and image folders, and rebuild a
+                  portfolio from scratch every time they apply for a job, pitch a client or enter a competition.
+                </p>
+
+                <h4>What the platform does</h4>
+                <ul>
+                  <li>
+                    <strong>Project library</strong> where each project holds its images, drawings and descriptions in
+                    one place.
+                  </li>
+                  <li><strong>Collections</strong> to curate projects into focused sets.</li>
+                  <li>
+                    <strong>Tailored portfolio versions</strong> that can be shared with different audiences without
+                    duplicating work.
+                  </li>
+                  <li><strong>Subscriptions</strong> with Stripe-powered paid plans and a public pricing page.</li>
+                </ul>
+
+                <h4>Bubble skills shown</h4>
+                <p>
+                  SaaS subscription billing with Stripe, media-heavy data modelling, sharing and permissions, backend
+                  workflows.
+                </p>
+              </div>
+            </details>
+          </article>
+        </div>
+      </section>
+
+      <!-- ===================== CERTIFICATIONS ===================== -->
+      <section id="certifications" class="section container" aria-labelledby="certifications-title">
+        <h2 id="certifications-title" class="section-title">Certifications</h2>
+
+        <ul class="cert-list">
+          <li class="cert">
+            <h3 class="cert-name">Bubble Developer Certification</h3>
+            <p class="cert-issuer">Bubble (bubble.io) · Earned Oct 2024</p>
+            <p class="cert-note">
+              90-question, ~2-hour exam covering interface, layout and styles, frontend logic, database and security,
+              backend, APIs and performance.
+            </p>
+          </li>
+          <li class="cert">
+            <h3 class="cert-name">Bubble Certification</h3>
+            <p class="cert-issuer">No Code Alliance</p>
+            <p class="cert-note">50-question exam across data, workflows, API and settings.</p>
+          </li>
+          <li class="cert">
+            <h3 class="cert-name">Bubble.io Certified Associate (MBCA)</h3>
+            <p class="cert-issuer">Million Labs</p>
+            <p class="cert-note">Certifies the ability to deliver no-code solutions in Bubble.</p>
+          </li>
+          <li class="cert">
+            <h3 class="cert-name">No-Code Bootcamp</h3>
+            <p class="cert-issuer">Airdev</p>
+            <p class="cert-note">Airdev's program for building production software without code.</p>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ===================== CONTACT ===================== -->
+      <section id="contact" class="section container contact" aria-labelledby="contact-title">
+        <h2 id="contact-title" class="section-title">Contact</h2>
+        <p class="contact-lead">
+          Have a product to build or a Bubble app that needs to scale? I'd love to hear about it.
+        </p>
+
+        <!-- "mailto:" links open the visitor's email app with your address already filled in. -->
+        <a class="button button-primary contact-email" href="mailto:emmakoffi.j@gmail.com">emmakoffi.j@gmail.com</a>
+
+        <ul class="contact-list">
+          <li>
+            <a href="https://www.linkedin.com/in/emmanuel312/" target="_blank" rel="noopener">
+              <!-- LinkedIn icon -->
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"
+                />
+              </svg>
+              LinkedIn
+            </a>
+          </li>
+          <li>
+            <!-- Location pin icon -->
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"
+              />
+              <circle cx="12" cy="9.5" r="2.5" fill="none" stroke="currentColor" stroke-width="2" />
+            </svg>
+            Abuja, Nigeria
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="site-footer">
+      <div class="container">
+        <!-- main.js fills in the current year inside <span id="year">, so you never have to update it by hand. -->
+        <p>© <span id="year">2026</span> Emmanuel Johnny Koffi. Built by hand with HTML, CSS and JavaScript.</p>
+      </div>
+    </footer>
+  </body>
+</html>
