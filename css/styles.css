@@ -367,6 +367,11 @@ a:hover {
   font-size: 1.05rem;
 }
 
+/* Space between About paragraphs. "+" targets a paragraph that directly follows another one. */
+.about-text + .about-text {
+  margin-top: 1rem;
+}
+
 /* Proof points: a 2-column grid of short facts, each with an accent marker. */
 .proof-list {
   display: grid;
