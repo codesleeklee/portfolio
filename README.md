@@ -1,4 +1,4 @@
-# Emmanuel Johnny Koffi · Portfolio
+# Emmanuel Koffi · Portfolio
 
 A hand-coded, single-page portfolio in plain HTML, CSS and JavaScript. There is no build step and nothing to install.
 
