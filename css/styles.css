@@ -310,8 +310,9 @@ a:hover {
    5. HERO
    ========================================================= */
 
+/* The bottom padding is small because the next section adds its own top padding. */
 .hero {
-  padding-block: 6rem 4rem;
+  padding-block: 6rem 1rem;
 }
 
 .status-badge {
@@ -332,12 +333,6 @@ a:hover {
   height: 8px;
   border-radius: 50%; /* 50% radius on a square = a circle */
   background: var(--success);
-}
-
-.eyebrow {
-  font-family: var(--font-mono);
-  color: var(--accent);
-  margin-bottom: 0.75rem;
 }
 
 /* clamp(min, preferred, max): the size grows with the screen width (vw) but never
@@ -370,6 +365,11 @@ a:hover {
   max-width: 68ch;
   color: var(--muted);
   font-size: 1.05rem;
+}
+
+/* Space between About paragraphs. "+" targets a paragraph that directly follows another one. */
+.about-text + .about-text {
+  margin-top: 1rem;
 }
 
 /* Proof points: a 2-column grid of short facts, each with an accent marker. */
@@ -545,12 +545,6 @@ a:hover {
 .project-title {
   font-size: 1.35rem;
   font-weight: 700;
-}
-
-.project-link {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  white-space: nowrap; /* keeps "Visit site ↗" on one line */
 }
 
 .project-tagline {
@@ -777,7 +771,7 @@ a:hover {
   }
 
   .hero {
-    padding-block: 4rem 3rem;
+    padding-block: 4rem 0.5rem;
   }
 
   .section {
