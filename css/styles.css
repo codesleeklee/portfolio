@@ -1,0 +1,798 @@
+/*
+  styles.css: everything about how the site LOOKS.
+
+  The file is organised top to bottom:
+    1. Theme colors (CSS variables) for dark and light mode
+    2. Base styles (reset, body, links, headings)
+    3. Layout helpers (container, sections)
+    4. Header and navigation
+    5. Hero
+    6. About, technologies, skills
+    7. Experience
+    8. Projects
+    9. Certifications
+   10. Contact and footer
+   11. Small screens (responsive rules)
+
+  Tip: open your browser's DevTools (right-click → Inspect) and you can
+  change any of these values live to see what they do.
+*/
+
+/* =========================================================
+   1. THEME COLORS
+   CSS "custom properties" (variables) start with two dashes.
+   We define every color ONCE here, then use var(--name) everywhere else.
+   Switching theme just swaps these values; nothing else needs to change.
+   ========================================================= */
+
+/* Dark theme is the default (it's what :root gets when no theme is set). */
+:root {
+  --bg: #0b1220; /* page background: a deep navy, close to your old Bubble site */
+  --surface: #111a2c; /* cards and boxes sit slightly lighter than the page */
+  --border: #1f2a40; /* thin lines around cards */
+  --text: #e6ebf2; /* main text */
+  --muted: #94a3b8; /* secondary text (dates, descriptions) */
+  --accent: #5eead4; /* the one highlight color: links, buttons, small labels */
+  --accent-contrast: #0b1220; /* text that sits ON the accent color (e.g. button label) */
+  --success: #22c55e; /* the "available" dot */
+
+  /* Not colors, but also reused everywhere: */
+  --radius: 12px; /* how rounded the corners are */
+  --max-width: 960px; /* how wide the content can get on big screens */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Light theme: same variable names, different values.
+   js/theme.js sets data-theme="light" on the <html> tag to activate this. */
+:root[data-theme="light"] {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --muted: #475569;
+  --accent: #0f766e; /* a darker teal so it stays readable on a white background */
+  --accent-contrast: #ffffff;
+  --success: #16a34a;
+}
+
+/* =========================================================
+   2. BASE STYLES
+   ========================================================= */
+
+/* "border-box" makes width include padding and border. It makes sizing far more predictable. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Smooth scrolling when you click a menu link, unless the visitor asked their OS for less motion. */
+html {
+  scroll-behavior: smooth;
+  /* Leaves room for the sticky header when jumping to a section, so the title isn't hidden under it. */
+  scroll-padding-top: 80px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 1rem; /* 1rem = the browser's base size, usually 16px */
+  line-height: 1.65; /* space between lines; ~1.5–1.7 is comfortable to read */
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.2;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* A clear outline when navigating with the keyboard (Tab). Never remove focus styles without a replacement. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Hidden off-screen until focused with Tab (see the skip link in index.html). */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border-radius: var(--radius);
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* =========================================================
+   3. LAYOUT HELPERS
+   ========================================================= */
+
+/* .container centers the content and stops it getting too wide. */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto; /* "auto" left and right margins = centered */
+  padding-inline: 1.25rem; /* breathing room on the sides, important on phones */
+}
+
+/* Vertical spacing between sections. */
+.section {
+  padding-block: 4rem;
+}
+
+/* Section titles get a small accent "//" in front, a code-comment nod. */
+.section-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.75rem;
+}
+
+.section-title::before {
+  content: "// ";
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-weight: 400;
+}
+
+.subsection-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 2.5rem 0 1rem;
+}
+
+/* Buttons (used on <a> links). */
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.4rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  border: 1px solid var(--accent);
+  transition: background-color 0.15s ease, color 0.15s ease; /* a gentle, quick color change on hover */
+}
+
+.button:hover {
+  text-decoration: none;
+}
+
+.button-primary {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.button-primary:hover {
+  background: transparent;
+  color: var(--accent);
+}
+
+.button-secondary {
+  background: transparent;
+  color: var(--accent);
+}
+
+.button-secondary:hover {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+/* =========================================================
+   4. HEADER AND NAVIGATION
+   ========================================================= */
+
+.site-header {
+  position: sticky; /* stays at the top while you scroll */
+  top: 0;
+  z-index: 10; /* sits above the page content */
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Flexbox lines the logo, menu and toggle up in a row. */
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: 64px;
+}
+
+.logo {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 1.15rem;
+  color: var(--text);
+  margin-right: auto; /* pushes everything after it to the right */
+}
+
+.logo:hover {
+  text-decoration: none;
+}
+
+.logo-dot {
+  color: var(--accent);
+}
+
+.site-nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.site-nav a {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.site-nav a:hover {
+  color: var(--text);
+  text-decoration: none;
+}
+
+/* Shared look for the two icon buttons in the header. */
+.theme-toggle,
+.nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.theme-toggle:hover,
+.nav-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Show the sun in dark mode and the moon in light mode. */
+.icon-moon {
+  display: none;
+}
+
+:root[data-theme="light"] .icon-sun {
+  display: none;
+}
+
+:root[data-theme="light"] .icon-moon {
+  display: block;
+}
+
+/* The hamburger button is hidden on big screens; the small-screen rules at the bottom show it. */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-toggle-bar {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: currentColor; /* "currentColor" = whatever the text color is */
+  border-radius: 2px;
+}
+
+/* =========================================================
+   5. HERO
+   ========================================================= */
+
+.hero {
+  padding-block: 6rem 4rem;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  margin-bottom: 1.75rem;
+  border: 1px solid var(--border);
+  border-radius: 999px; /* a very large radius makes a "pill" shape */
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%; /* 50% radius on a square = a circle */
+  background: var(--success);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+/* clamp(min, preferred, max): the size grows with the screen width (vw) but never
+   goes below the minimum or above the maximum. Great for big headings. */
+.hero-name {
+  font-size: clamp(2.25rem, 6vw, 3.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.hero-headline {
+  margin-top: 1rem;
+  max-width: 34ch; /* "ch" ≈ width of one character, so this limits the line to ~34 characters */
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  color: var(--muted);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap; /* lets the buttons stack on narrow screens */
+  gap: 0.75rem;
+  margin-top: 2.25rem;
+}
+
+/* =========================================================
+   6. ABOUT, TECHNOLOGIES, SKILLS
+   ========================================================= */
+
+.about-text {
+  max-width: 68ch;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+/* Proof points: a 2-column grid of short facts, each with an accent marker. */
+.proof-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* two equal columns */
+  gap: 0.75rem 2rem;
+  margin: 2rem 0 0;
+  padding: 0;
+  list-style: none; /* removes the default bullets so we can draw our own */
+}
+
+.proof-list li {
+  position: relative;
+  padding-left: 1.25rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.proof-list li::before {
+  content: "▹";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+/* Technologies: chips that wrap onto new lines as you add more. */
+.tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tech-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 1rem 0.55rem 0.6rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-weight: 500;
+}
+
+.tech-icon {
+  color: var(--accent);
+  flex-shrink: 0; /* stops the icon getting squashed */
+}
+
+/* Skills: a responsive grid. auto-fit + minmax = "fit as many 260px-wide columns as there is room for". */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin: 0;
+}
+
+.skill-group {
+  padding: 1.1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.skill-group dt {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+
+.skill-group dd {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* =========================================================
+   7. EXPERIENCE
+   A vertical line on the left with a dot for each job: a simple timeline.
+   ========================================================= */
+
+.timeline {
+  margin: 0;
+  padding: 0 0 0 1.5rem;
+  list-style: none;
+  border-left: 2px solid var(--border);
+}
+
+.timeline > li {
+  position: relative;
+}
+
+/* The dot on the timeline line. "::before" creates an extra box without extra HTML. */
+.timeline > li::before {
+  content: "";
+  position: absolute;
+  left: calc(-1.5rem - 7px); /* moves the dot back onto the line */
+  top: 0.45rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+}
+
+.job-header {
+  display: flex;
+  justify-content: space-between; /* title on the left, dates on the right */
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.job-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.job-company {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.job-meta {
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.job-points {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--muted);
+}
+
+.job-points li + li {
+  margin-top: 0.35rem; /* "li + li" = every list item that comes after another one */
+}
+
+/* =========================================================
+   8. PROJECTS
+   ========================================================= */
+
+.project-list {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.project {
+  padding: 1.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.15s ease;
+}
+
+.project:hover {
+  border-color: var(--accent);
+}
+
+.project-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.project-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.project-link {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  white-space: nowrap; /* keeps "Visit site ↗" on one line */
+}
+
+.project-tagline {
+  margin-top: 0.25rem;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.project-summary {
+  margin-top: 0.85rem;
+  color: var(--muted);
+}
+
+/* Tags: small mono-font pills. */
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tag-list li {
+  padding: 0.2rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* The <details> case study. */
+.case-study {
+  margin-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+
+/* <summary> is the clickable "Read the case study" line. */
+.case-study summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--accent);
+  list-style: none; /* hides the browser's default triangle… */
+}
+
+.case-study summary::-webkit-details-marker {
+  display: none; /* …including in Safari, which uses a different method */
+}
+
+/* Our own "+" / "–" indicator instead of the triangle. */
+.case-study summary::after {
+  content: " +";
+  font-family: var(--font-mono);
+}
+
+/* [open] is added by the browser when the details are expanded. */
+.case-study[open] summary::after {
+  content: " –";
+}
+
+.case-study-body {
+  padding-top: 0.5rem;
+  color: var(--muted);
+}
+
+.case-study-body h4 {
+  margin: 1.5rem 0 0.5rem;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.case-study-body ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.case-study-body li + li {
+  margin-top: 0.4rem;
+}
+
+.case-study-body strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* "By the numbers" stats as small boxes. */
+.case-study-body .stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  padding: 0;
+  list-style: none;
+}
+
+.case-study-body .stats li {
+  margin: 0;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+.case-study-body .stats strong {
+  display: block; /* puts the number on its own line above the label */
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+
+/* =========================================================
+   9. CERTIFICATIONS
+   ========================================================= */
+
+.cert-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cert {
+  padding: 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.cert-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.cert-issuer {
+  margin-top: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent);
+}
+
+.cert-note {
+  margin-top: 0.6rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* =========================================================
+   10. CONTACT AND FOOTER
+   ========================================================= */
+
+.contact-lead {
+  max-width: 52ch;
+  color: var(--muted);
+  font-size: 1.05rem;
+  margin-bottom: 1.5rem;
+}
+
+.contact-email {
+  word-break: break-all; /* lets a long email wrap on very small phones */
+}
+
+.contact-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+}
+
+.contact-list li,
+.contact-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding-block: 2rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* =========================================================
+   11. SMALL SCREENS
+   A media query applies the rules inside only when the condition is true.
+   Here: when the screen is 720px wide or less (tablets and phones).
+   ========================================================= */
+
+@media (max-width: 720px) {
+  /* Show the hamburger button. */
+  .nav-toggle {
+    display: inline-flex;
+    order: 2; /* puts it after the theme toggle */
+  }
+
+  /* The menu becomes a dropdown panel under the header, hidden until opened. */
+  .site-nav {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    padding: 0.5rem 1.25rem 1rem;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* main.js adds the "is-open" class when the hamburger is clicked. */
+  .site-nav.is-open {
+    display: flex;
+  }
+
+  .site-nav a {
+    padding: 0.75rem 0;
+    font-size: 1rem;
+  }
+
+  .hero {
+    padding-block: 4rem 3rem;
+  }
+
+  .section {
+    padding-block: 3rem;
+  }
+
+  .proof-list {
+    grid-template-columns: 1fr; /* one column on phones */
+  }
+
+  .job-meta {
+    text-align: left;
+  }
+
+  .project {
+    padding: 1.25rem;
+  }
+}
