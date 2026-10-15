@@ -322,9 +322,23 @@ main {
    5. HERO
    ========================================================= */
 
-/* No bottom padding: the About section's top padding (--section-space) makes the gap. */
+/*
+  The hero fills the whole first screen, so the About section only appears once you scroll.
+  - 100svh = 100% of the "small viewport height": the visible screen height, measured so that
+    phone browser toolbars don't push content below the fold. 100vh is the fallback for older browsers.
+  - We subtract 64px, the height of the sticky header, so header + hero = exactly one screen.
+  - Flexbox with justify-content: center keeps the text vertically centred in that space.
+  - position: relative lets the scroll cue be pinned to the bottom of the hero (see .scroll-cue).
+*/
 .hero {
-  padding-block: 6rem 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; /* stops the badge and buttons stretching to full width */
+  min-height: calc(100vh - 64px);
+  min-height: calc(100svh - 64px);
+  padding-block: 3rem 7rem; /* extra space at the bottom so the text never sits on top of the scroll cue */
 }
 
 .status-badge {
@@ -367,6 +381,48 @@ main {
   flex-wrap: wrap; /* lets the buttons stack on narrow screens */
   gap: 0.75rem;
   margin-top: 2.25rem;
+}
+
+/* "Scroll to explore" + arrow, centred at the bottom of the hero. */
+.scroll-cue {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%); /* left: 50% puts its LEFT edge in the middle; this shifts it back by half its width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.scroll-cue:hover {
+  color: var(--text);
+  text-decoration: none;
+}
+
+/* The arrow moves down 6px and back up, forever. "ease-in-out" makes it slow down at each end. */
+.scroll-cue-arrow {
+  animation: bounce 1.8s ease-in-out infinite;
+}
+
+/* @keyframes describes the steps of an animation, from 0% (start) to 100% (end). */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+/* Respect visitors who asked their device for less motion: no bounce for them. */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue-arrow {
+    animation: none;
+  }
 }
 
 /* =========================================================
@@ -788,7 +844,7 @@ main {
   }
 
   .hero {
-    padding-top: 4rem;
+    padding-top: 2rem;
   }
 
   .proof-list {
