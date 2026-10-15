@@ -10,7 +10,8 @@
 
   To change any text on the site, you only need to edit this file.
 -->
-<html lang="en">
+<!-- data-theme="light" here means the page is light even before (or without) JavaScript. -->
+<html lang="en" data-theme="light">
   <head>
     <!-- Character encoding: lets the browser show any letter or symbol correctly. -->
     <meta charset="UTF-8" />
@@ -106,7 +107,7 @@
           The light/dark toggle. It contains two icons; CSS shows only the one that fits the current theme.
           main.js updates the aria-label so screen readers announce what the button will do.
         -->
-        <button class="theme-toggle" type="button" aria-label="Switch to light mode">
+        <button class="theme-toggle" type="button" aria-label="Switch to dark mode">
           <!-- Sun icon (shown in dark mode: "click for light") -->
           <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
             <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2" />

@@ -3,12 +3,14 @@
 
   Why a separate tiny file? index.html loads it in the <head> without "defer",
   so it runs straight away. If we waited until the page had loaded, a visitor
-  who prefers light mode would briefly see the dark theme flash first.
+  who chose dark mode last time would briefly see the light theme flash first.
 
   The order of preference is:
     1. The choice the visitor made last time with the toggle (saved in localStorage)
-    2. Otherwise, their device setting (the "prefers-color-scheme" media query)
-    3. Otherwise, dark (the default in styles.css)
+    2. Otherwise, light: every first-time visitor starts on the light theme
+
+  Want to follow the visitor's device setting instead? Replace "light" below with:
+    window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
 */
 
 // An IIFE ("immediately invoked function expression"): a function that runs
@@ -25,10 +27,8 @@
     saved = null;
   }
 
-  // matchMedia lets JavaScript ask the same questions CSS media queries ask.
-  var prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
-
-  var theme = saved || (prefersLight ? "light" : "dark");
+  // "||" means "or": use the saved choice if there is one, otherwise "light".
+  var theme = saved || "light";
 
   // document.documentElement is the <html> tag. Setting data-theme="light"
   // switches on the light color variables in styles.css.
