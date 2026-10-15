@@ -727,29 +727,6 @@ main {
   font-weight: 600;
 }
 
-/* "By the numbers" stats as small boxes. */
-.case-study-body .stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  padding: 0;
-  list-style: none;
-}
-
-.case-study-body .stats li {
-  margin: 0;
-  padding: 0.5rem 0.85rem;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  font-size: 0.85rem;
-}
-
-.case-study-body .stats strong {
-  display: block; /* puts the number on its own line above the label */
-  font-size: 1.1rem;
-  color: var(--accent);
-}
-
 /* =========================================================
    9. CERTIFICATIONS
    ========================================================= */
@@ -792,8 +769,8 @@ main {
    10. CONTACT AND FOOTER
    ========================================================= */
 
+/* No max-width, so the sentence sits on one line on desktop and wraps on phones. */
 .contact-lead {
-  max-width: 52ch;
   color: var(--muted);
   font-size: 1.05rem;
   margin-bottom: 1.5rem;
