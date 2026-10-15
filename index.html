@@ -50,7 +50,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
 
@@ -77,23 +77,6 @@
     <!-- ===================== HEADER / NAVIGATION ===================== -->
     <header class="site-header">
       <div class="container header-inner">
-        <!-- Your initials act as the logo and link back to the top of the page. -->
-        <a class="logo" href="#top" aria-label="Back to top">EJK<span class="logo-dot">.</span></a>
-
-        <!-- The menu button only shows on small screens (see the CSS). -->
-        <button
-          class="nav-toggle"
-          type="button"
-          aria-controls="site-nav"
-          aria-expanded="false"
-          aria-label="Open menu"
-        >
-          <!-- Three lines = the classic "hamburger" icon. -->
-          <span class="nav-toggle-bar"></span>
-          <span class="nav-toggle-bar"></span>
-          <span class="nav-toggle-bar"></span>
-        </button>
-
         <!-- Each link points to a section further down using its id (e.g. href="#about" → id="about"). -->
         <nav id="site-nav" class="site-nav" aria-label="Main">
           <a href="#about">About me</a>
@@ -104,32 +87,52 @@
         </nav>
 
         <!--
-          The light/dark toggle. It contains two icons; CSS shows only the one that fits the current theme.
-          main.js updates the aria-label so screen readers announce what the button will do.
+          The two buttons on the right of the header, grouped so the CSS can pin them to the right
+          while the menu links stay centred.
         -->
-        <button class="theme-toggle" type="button" aria-label="Switch to dark mode">
-          <!-- Sun icon (shown in dark mode: "click for light") -->
-          <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-            <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2" />
-            <path
-              d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-            />
-          </svg>
-          <!-- Moon icon (shown in light mode: "click for dark") -->
-          <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-            <path
-              d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
+        <div class="header-controls">
+          <!-- The menu button only shows on small screens (see the CSS). -->
+          <button
+            class="nav-toggle"
+            type="button"
+            aria-controls="site-nav"
+            aria-expanded="false"
+            aria-label="Open menu"
+          >
+            <!-- Three lines = the classic "hamburger" icon. -->
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+          </button>
+
+          <!--
+            The light/dark toggle. It contains two icons; CSS shows only the one that fits the current theme.
+            main.js updates the aria-label so screen readers announce what the button will do.
+          -->
+          <button class="theme-toggle" type="button" aria-label="Switch to dark mode">
+            <!-- Sun icon (shown in dark mode: "click for light") -->
+            <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2" />
+              <path
+                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+            <!-- Moon icon (shown in light mode: "click for dark") -->
+            <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <path
+                d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
     </header>
 
@@ -143,8 +146,8 @@
           Available for opportunities
         </p>
 
-        <h1 class="hero-name">Emmanuel Johnny Koffi</h1>
-        <p class="hero-headline">I turn ideas into production-grade digital products with Bubble.io.</p>
+        <h1 class="hero-name">Emmanuel Koffi</h1>
+        <p class="hero-headline">I turn ideas into production-grade digital products.</p>
 
         <!-- Two call-to-action buttons. They're really links (<a>) styled to look like buttons. -->
         <div class="hero-actions">
@@ -176,43 +179,36 @@
       <section id="about" class="section container" aria-labelledby="about-title">
         <h2 id="about-title" class="section-title">About me</h2>
 
-        <p class="about-text">
-          I build production-grade web applications that businesses run on, from fintech platforms and IoT
-          dashboards to education platforms and AI-powered tools. Most of my work so far has been in Bubble.io, where I
-          design the data model, secure it with privacy rules, integrate the APIs that matter and move heavy logic into
-          backend workflows so the app stays fast as it grows.
-        </p>
-        <p class="about-text">
-          I'm now extending that same engineering discipline into coded full-stack applications and AI-assisted
-          development, using modern tooling and AI coding assistants to ship faster without cutting corners. Whether you
-          need an MVP in weeks or a complex product that keeps scaling, I pick the stack that fits the job and build it
-          to last.
-        </p>
-
-        <!-- Proof points: a quick list of facts that back up the About text. -->
-        <ul class="proof-list">
-          <li>4 Bubble certifications, including the official Bubble Developer Certification</li>
-          <li>Over 600 backend workflows across production apps</li>
-          <li>5 featured products across fintech, AI, IoT, edtech and creative SaaS</li>
-        </ul>
-
         <!--
-          TECHNOLOGIES
-          Each technology is a "chip": an icon plus a name. To add one later (e.g. Xano or Figma),
-          copy the whole <li class="tech-chip">…</li> block and change the icon and the name.
+          Two columns on wide screens: the story on the left, the highlights card on the right.
+          On phones the CSS stacks them into one column.
         -->
-        <h3 class="subsection-title">Technologies</h3>
-        <ul class="tech-list">
-          <li class="tech-chip">
-            <!-- A simple "b" mark drawn with SVG, so no image file is needed. -->
-            <svg class="tech-icon" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
-              <rect width="32" height="32" rx="8" fill="currentColor" />
-              <circle cx="17.5" cy="18.5" r="5" fill="none" stroke="var(--bg)" stroke-width="3" />
-              <path d="M12.5 7.5v16" stroke="var(--bg)" stroke-width="3" stroke-linecap="round" />
-            </svg>
-            <span>Bubble.io</span>
-          </li>
-        </ul>
+        <div class="about-grid">
+          <div class="about-story">
+            <p class="about-text">
+              I build production-grade web applications that businesses run on, from fintech platforms and IoT
+              dashboards to education platforms and AI-powered tools. Most of my work so far has been in Bubble.io, where I
+              design the data model, secure it with privacy rules, integrate the APIs that matter and move heavy logic into
+              backend workflows so the app stays fast as it grows.
+            </p>
+            <p class="about-text">
+              I'm now extending that same engineering discipline into coded full-stack applications and AI-assisted
+              development, using modern tooling and AI coding assistants to ship faster without cutting corners. Whether you
+              need an MVP in weeks or a complex product that keeps scaling, I pick the stack that fits the job and build it
+              to last.
+            </p>
+
+          </div>
+
+          <!-- Highlights: a quick list of facts that back up the About text, shown in a card beside it. -->
+          <aside class="about-highlights" aria-label="Highlights">
+            <ul class="proof-list">
+              <li>4 Bubble certifications, including the official Bubble Developer Certification</li>
+              <li>Over 600 backend workflows across production apps</li>
+              <li>5 featured products across fintech, AI, IoT, edtech and creative SaaS</li>
+            </ul>
+          </aside>
+        </div>
 
         <!-- SKILLS: grouped so a recruiter can scan them quickly. A <dl> is a "description list": term + description. -->
         <h3 class="subsection-title">Skills</h3>
@@ -289,6 +285,15 @@
           <article class="project">
             <div class="project-head">
               <h3 class="project-title">CapGains</h3>
+              <!-- Shows which platform the project was built on. For a coded project, change the icon and the text. -->
+              <span class="platform-badge">
+                <svg class="bubble-icon" viewBox="0 0 32 32" width="16" height="16" aria-hidden="true">
+                  <rect width="32" height="32" rx="8" fill="currentColor" />
+                  <circle cx="17.5" cy="18.5" r="5" fill="none" stroke="var(--surface)" stroke-width="3" />
+                  <path d="M12.5 7.5v16" stroke="var(--surface)" stroke-width="3" stroke-linecap="round" />
+                </svg>
+                Built on Bubble.io
+              </span>
             </div>
             <p class="project-tagline">Tax-incentive intelligence for venture investors and startups</p>
             <p class="project-summary">
@@ -389,6 +394,14 @@
           <article class="project">
             <div class="project-head">
               <h3 class="project-title">GreenPortfolio</h3>
+              <span class="platform-badge">
+                <svg class="bubble-icon" viewBox="0 0 32 32" width="16" height="16" aria-hidden="true">
+                  <rect width="32" height="32" rx="8" fill="currentColor" />
+                  <circle cx="17.5" cy="18.5" r="5" fill="none" stroke="var(--surface)" stroke-width="3" />
+                  <path d="M12.5 7.5v16" stroke="var(--surface)" stroke-width="3" stroke-linecap="round" />
+                </svg>
+                Built on Bubble.io
+              </span>
             </div>
             <p class="project-tagline">See how your investments impact the planet</p>
             <p class="project-summary">
@@ -473,6 +486,14 @@
           <article class="project">
             <div class="project-head">
               <h3 class="project-title">Cloud-IQ</h3>
+              <span class="platform-badge">
+                <svg class="bubble-icon" viewBox="0 0 32 32" width="16" height="16" aria-hidden="true">
+                  <rect width="32" height="32" rx="8" fill="currentColor" />
+                  <circle cx="17.5" cy="18.5" r="5" fill="none" stroke="var(--surface)" stroke-width="3" />
+                  <path d="M12.5 7.5v16" stroke="var(--surface)" stroke-width="3" stroke-linecap="round" />
+                </svg>
+                Built on Bubble.io
+              </span>
             </div>
             <p class="project-tagline">One control centre for IoT SIMs, devices and customers</p>
             <p class="project-summary">
@@ -560,6 +581,14 @@
           <article class="project">
             <div class="project-head">
               <h3 class="project-title">CRITmetic</h3>
+              <span class="platform-badge">
+                <svg class="bubble-icon" viewBox="0 0 32 32" width="16" height="16" aria-hidden="true">
+                  <rect width="32" height="32" rx="8" fill="currentColor" />
+                  <circle cx="17.5" cy="18.5" r="5" fill="none" stroke="var(--surface)" stroke-width="3" />
+                  <path d="M12.5 7.5v16" stroke="var(--surface)" stroke-width="3" stroke-linecap="round" />
+                </svg>
+                Built on Bubble.io
+              </span>
             </div>
             <p class="project-tagline">A learning platform for critical digital literacy</p>
             <p class="project-summary">
@@ -642,6 +671,14 @@
           <article class="project">
             <div class="project-head">
               <h3 class="project-title">ARQHIVE</h3>
+              <span class="platform-badge">
+                <svg class="bubble-icon" viewBox="0 0 32 32" width="16" height="16" aria-hidden="true">
+                  <rect width="32" height="32" rx="8" fill="currentColor" />
+                  <circle cx="17.5" cy="18.5" r="5" fill="none" stroke="var(--surface)" stroke-width="3" />
+                  <path d="M12.5 7.5v16" stroke="var(--surface)" stroke-width="3" stroke-linecap="round" />
+                </svg>
+                Built on Bubble.io
+              </span>
             </div>
             <p class="project-tagline">The portfolio platform for architects and designers</p>
             <p class="project-summary">
