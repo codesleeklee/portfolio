@@ -367,12 +367,15 @@ main {
 
 /* clamp(min, preferred, max): the size grows with the screen width (vw) but never
    goes below the minimum or above the maximum. Great for big headings. */
-/* 800 = "extra bold". A big, heavy name gives the first screen presence without needing images. */
+/*
+  A big name gives the first screen presence without needing images.
+  font-weight 600 ("semibold") keeps it large but not heavy; 400 is normal text, 800 is extra bold.
+*/
 .hero-name {
   font-size: clamp(3rem, 10vw, 6.5rem);
-  font-weight: 800;
+  font-weight: 600;
   line-height: 1.05;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
 }
 
 .hero-headline {
