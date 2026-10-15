@@ -71,8 +71,12 @@
 /* Smooth scrolling when you click a menu link, unless the visitor asked their OS for less motion. */
 html {
   scroll-behavior: smooth;
-  /* Leaves room for the sticky header when jumping to a section, so the title isn't hidden under it. */
-  scroll-padding-top: 80px;
+  /*
+    When you click a menu link, the browser scrolls so the section's top sits this far from the top
+    of the screen. 64px is exactly the sticky header's height, so the section starts right under
+    the header: nothing of the section above peeks through, and nothing is hidden behind the header.
+  */
+  scroll-padding-top: 64px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -229,33 +233,32 @@ main {
   border-bottom: 1px solid var(--border);
 }
 
-/* Flexbox lines the logo, menu and toggle up in a row. */
+/*
+  Flexbox with justify-content: center puts the menu links in the middle of the header.
+  position: relative lets .header-controls be pinned to the right edge (see below).
+*/
 .header-inner {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  justify-content: center;
   height: 64px;
-}
-
-.logo {
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: 1.15rem;
-  color: var(--text);
-  margin-right: auto; /* pushes everything after it to the right */
-}
-
-.logo:hover {
-  text-decoration: none;
-}
-
-.logo-dot {
-  color: var(--accent);
 }
 
 .site-nav {
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
+}
+
+/* The theme toggle (and the menu button on phones) sit on the right, outside the centred flow,
+   so they don't push the links off-centre. */
+.header-controls {
+  position: absolute;
+  right: 1.25rem; /* matches the container's side padding */
+  top: 50%;
+  transform: translateY(-50%); /* top: 50% + this = vertically centred */
+  display: flex;
+  gap: 0.5rem;
 }
 
 .site-nav a {
@@ -335,7 +338,8 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start; /* stops the badge and buttons stretching to full width */
+  align-items: center; /* centres the badge, name, line and buttons horizontally */
+  text-align: center;
   min-height: calc(100vh - 64px);
   min-height: calc(100svh - 64px);
   padding-block: 3rem 7rem; /* extra space at the bottom so the text never sits on top of the scroll cue */
@@ -363,21 +367,27 @@ main {
 
 /* clamp(min, preferred, max): the size grows with the screen width (vw) but never
    goes below the minimum or above the maximum. Great for big headings. */
+/*
+  A big name gives the first screen presence without needing images.
+  font-weight 600 ("semibold") keeps it large but not heavy; 400 is normal text, 800 is extra bold.
+*/
 .hero-name {
-  font-size: clamp(2.25rem, 6vw, 3.75rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-size: clamp(3rem, 10vw, 6.5rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
 }
 
 .hero-headline {
-  margin-top: 1rem;
-  max-width: 34ch; /* "ch" ≈ width of one character, so this limits the line to ~34 characters */
+  margin-top: 1.25rem;
+  max-width: 30ch; /* "ch" ≈ width of one character, so this limits the line to ~30 characters */
   font-size: clamp(1.2rem, 3vw, 1.6rem);
   color: var(--muted);
 }
 
 .hero-actions {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap; /* lets the buttons stack on narrow screens */
   gap: 0.75rem;
   margin-top: 2.25rem;
@@ -426,11 +436,21 @@ main {
 }
 
 /* =========================================================
-   6. ABOUT, TECHNOLOGIES, SKILLS
+   6. ABOUT AND SKILLS
    ========================================================= */
 
+/*
+  Two columns: the story takes 2 parts of the width, the highlights card 1 part ("fr" = fraction).
+  align-items: start keeps the card its natural height instead of stretching it to match the text.
+*/
+.about-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
 .about-text {
-  max-width: 68ch;
   color: var(--muted);
   font-size: 1.05rem;
 }
@@ -440,12 +460,19 @@ main {
   margin-top: 1rem;
 }
 
-/* Proof points: a 2-column grid of short facts, each with an accent marker. */
+/* The highlights card beside the story. */
+.about-highlights {
+  padding: 1.25rem 1.4rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+/* Proof points: short facts stacked in the card, each with an accent marker. */
 .proof-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* two equal columns */
-  gap: 0.75rem 2rem;
-  margin: 2rem 0 0;
+  gap: 0.9rem;
+  margin: 0;
   padding: 0;
   list-style: none; /* removes the default bullets so we can draw our own */
 }
@@ -464,52 +491,34 @@ main {
   color: var(--accent);
 }
 
-/* Technologies: chips that wrap onto new lines as you add more. */
-.tech-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+/*
+  Skills: one card with a row per group, the label on the left and the skills on the right.
+  Each row is its own small grid: a fixed 11rem column for the label, the rest for the skills.
+*/
+.skills-grid {
   margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.tech-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.55rem 1rem 0.55rem 0.6rem;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  font-weight: 500;
-}
-
-.tech-icon {
-  color: var(--accent);
-  flex-shrink: 0; /* stops the icon getting squashed */
-}
-
-/* Skills: a responsive grid. auto-fit + minmax = "fit as many 260px-wide columns as there is room for". */
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1rem;
-  margin: 0;
 }
 
 .skill-group {
-  padding: 1.1rem 1.25rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  display: grid;
+  grid-template-columns: 11rem 1fr;
+  gap: 1.5rem;
+  padding: 1rem 1.4rem;
+}
+
+/* A thin line between rows (but not above the first one). */
+.skill-group + .skill-group {
+  border-top: 1px solid var(--border);
 }
 
 .skill-group dt {
   font-family: var(--font-mono);
   font-size: 0.85rem;
   color: var(--accent);
-  margin-bottom: 0.35rem;
+  padding-top: 0.1rem; /* lines the smaller mono label up with the first line of text */
 }
 
 .skill-group dd {
@@ -613,6 +622,24 @@ main {
 .project-title {
   font-size: 1.35rem;
   font-weight: 700;
+}
+
+/* "Built on Bubble.io" label at the top right of each project card. */
+.platform-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0.65rem 0.2rem 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  white-space: nowrap; /* keeps the label on one line */
+}
+
+.bubble-icon {
+  color: var(--accent);
+  flex-shrink: 0;
 }
 
 .project-tagline {
@@ -814,6 +841,11 @@ main {
     order: 2; /* puts it after the theme toggle */
   }
 
+  /* With the links tucked into the menu, the buttons line up on the right. */
+  .header-inner {
+    justify-content: flex-end;
+  }
+
   /* The menu becomes a dropdown panel under the header, hidden until opened. */
   .site-nav {
     display: none;
@@ -847,8 +879,22 @@ main {
     padding-top: 2rem;
   }
 
-  .proof-list {
-    grid-template-columns: 1fr; /* one column on phones */
+  /* About: stack the story and the highlights card into one column. */
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  /* Skills: put each label above its skills instead of beside them. */
+  .skill-group {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  /* Project cards: let the title and the Bubble.io label wrap onto two lines if needed. */
+  .project-head {
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
   }
 
   .job-meta {

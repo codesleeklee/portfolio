@@ -25,7 +25,6 @@ then visit http://localhost:8000.
 ## Common edits
 
 - **Change the accent color:** edit `--accent` in both the dark (`:root`) and light (`:root[data-theme="light"]`) blocks at the top of `css/styles.css`.
-- **Add a technology:** copy a `<li class="tech-chip">` block in `index.html`.
 - **Add a job:** copy the `<li>` that wraps `<article class="job">`, newest first.
 - **Add a project:** copy an `<article class="project">` block.
 - **Hide "Available for opportunities":** delete the `<p class="status-badge">` in the hero.
