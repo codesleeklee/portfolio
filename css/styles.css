@@ -776,15 +776,11 @@ main {
   margin-bottom: 1.5rem;
 }
 
-.contact-email {
-  word-break: break-all; /* lets a long email wrap on very small phones */
-}
-
 .contact-list {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
-  margin: 1.75rem 0 0;
+  margin: 0; /* the line above already leaves space */
   padding: 0;
   list-style: none;
   color: var(--muted);
